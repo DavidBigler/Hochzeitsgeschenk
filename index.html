@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hochzeits-Rätsel</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      background: #fff5f7;
+      margin: 0;
+      padding: 2rem;
+      text-align: center;
+    }
+    .page {
+      display: none;
+    }
+    .active {
+      display: block;
+    }
+    button {
+      padding: 1rem 2rem;
+      font-size: 1rem;
+      background: hotpink;
+      color: white;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      margin-top: 2rem;
+    }
+    input {
+      padding: 0.5rem;
+      font-size: 1rem;
+      width: 80%;
+    }
+    label {
+      display: block;
+      margin-top: 1rem;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <div id="page1" class="page active">
+    <h1>🧠 Hochzeitspaarrätsel!</h1>
+    <p>Danke, dass wir diesen wunderschönen Tag mit euch feiern durften! ❤️</p>
+    <p>Um euer Geschenk zu erhalten, müsst ihr nur noch ein paar Fragen richtig beantworten.</p>
+    <button onclick="nextPage(2)">Los geht's!</button>
+  </div>
+
+  <div id="page2" class="page">
+    <h2>🔢 Rätsel 1</h2>
+    <p>Ich bin die erste natürliche Zahl. Ohne mich gäbe es keine Reihenfolge. Was bin ich?</p>
+    <input type="text" id="raetsel1" placeholder="Zahl eingeben..." />
+    <br>
+    <button onclick="nextPage(3)">Weiter zu Rätsel 2</button>
+  </div>
+
+  <div id="page3" class="page">
+    <h2>🔍 Rätsel 2</h2>
+    <p>Wie viele Finger hat eine Hand (ohne Daumen zu vergessen)?</p>
+    <input type="text" id="raetsel2" placeholder="Zahl eingeben..." />
+    <br>
+    <button onclick="nextPage(4)">Weiter zu Rätsel 3</button>
+  </div>
+
+  <div id="page4" class="page">
+    <h2>🔥 Rätsel 3</h2>
+    <p>Ich bin nichts. Ich bin leer. Ich bin ...?</p>
+    <input type="text" id="raetsel3" placeholder="Zahl eingeben..." />
+    <br>
+    <button onclick="nextPage(5)">Zur letzten Aufgabe</button>
+  </div>
+
+  <div id="page5" class="page">
+    <h2>💰 Finale Aufgabe</h2>
+    <p>Setzt die drei Zahlen zu einer Zahl zusammen.</p>
+    <p>Das ist die Lösung des Rätsels.</p>
+    <p>(Tipp: Die Reihenfolge ist wie die Reihenfolge der Rätsel)</p>
+    <input type="text" id="betrag" placeholder="Zahl eingeben z. B. 150 ;-)" />
+    <br>
+    <button onclick="nextPage('final')">Antwort abschicken 🎉</button>
+  </div>
+
+  <div id="final" class="page">
+    <h2>🎉 Rätselmeister!</h2>
+    <p>Ihr habt alle Rätsel gemeistert – Glückwunsch! Ob die Antworten richtig sind, und ihr euer Geschenk verdient habt, werden wir nun prüfen!</p>
+    <p>Hinterlasst eure Namen, damit wir wissen, dass ihr das Rätsel geschafft habt 💌</p>
+    <form action="https://formspree.io/f/mldwalkw" method="POST">
+      <label for="name">Eure Namen</label>
+      <input type="text" name="name" id="name" placeholder="Euer Name" required /><br>
+
+      <input type="hidden" name="raetsel1" id="hiddenRaetsel1" />
+      <input type="hidden" name="raetsel2" id="hiddenRaetsel2" />
+      <input type="hidden" name="raetsel3" id="hiddenRaetsel3" />
+      <input type="hidden" name="betrag" id="hiddenBetrag" />
+
+      <button type="submit">Abschicken & Geschenk sichern 🎁</button>
+    </form>
+  </div>
+
+  <script>
+    function nextPage(pageNumber) {
+      document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+      const next = document.getElementById('page' + pageNumber) || document.getElementById(pageNumber);
+      if (next) next.classList.add('active');
+
+      if (pageNumber === 'final') {
+        document.getElementById('hiddenRaetsel1').value = document.getElementById('raetsel1').value;
+        document.getElementById('hiddenRaetsel2').value = document.getElementById('raetsel2').value;
+        document.getElementById('hiddenRaetsel3').value = document.getElementById('raetsel3').value;
+        document.getElementById('hiddenBetrag').value = document.getElementById('betrag').value;
+      }
+    }
+  </script>
+</body>
+</html>
